@@ -32,7 +32,7 @@ jobs:
             paths: results.xml
 
       - name: Uploat pytest test results
-        uses: test-summary/upload-artifact@v4
+        uses: action/upload-artifact@v4
         if: success() || failure()
         with:
             name: test-results
