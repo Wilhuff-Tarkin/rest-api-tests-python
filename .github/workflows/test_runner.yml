@@ -23,7 +23,7 @@ jobs:
              pip install --upgrade pip
              pip install -r requirements.txt
              export PYTHONPATH=${PYTHONPATH}:${{ github.workspace }}
-             pytest -s tests/part_01/test_users.py --junitxml=results.xml
+             pytest -s tests/part_01/test_users.py --junitxml=results.xml --html=report.html
              
       - name: Create test summary
         uses: test-summary/action@dist
@@ -31,8 +31,14 @@ jobs:
         with:
             paths: results.xml
 
-
-
-
+      - name: Uploat pytest test results
+        uses: test-summary/upload-artifact@v4
+        if: success() || failure()
+        with:
+            name: test-results
+            paths: | 
+                results.xml
+                report.html
+                assets
 
 
